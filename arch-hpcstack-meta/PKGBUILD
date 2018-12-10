@@ -1,0 +1,10 @@
+# Maintainer: Jayesh Badwaik <badwaik.jayesh@gmail.com>
+
+pkgname=arch-hpcstack
+pkgver=1
+pkgrel=1
+pkgdesc='Meta package to install arch-hpcstack'
+arch=(any)
+url='https://github.com/jayeshbadwaik/arch-hpcstack'
+license=(GPL)
+depends=('hpcstack-llvm70' 'hpcstack-xmsh-llvm70-boost' 'hpcstack-xmsh-llvm70-hpx' 'hpcstack-xmsh-llvm70-toolchain' 'hpcstack-zell-llvm70-boost'  'hpcstack-zell-llvm70-hpx' 'hpcstack-zell-llvm70-toolchain' 'hpcstack-zell-llvm70-xmsh')

@@ -1,0 +1,37 @@
+pkgname=hpcstack-zell-llvm70-xmsh
+pkgver=fd13ae5
+pkgrel=1
+pkgdesc="xmsh : reference implementation to xmsh "
+arch=('x86_64')
+url="https://nagzira.github.io/xmsh"
+license=('MIT')
+depends=('hpcstack-llvm70')
+makedepends=('git' 'python3' )
+source=("git+https://github.com/nagzira/xmsh")
+sha256sums=('SKIP')
+_toolchain_prefix=/opt/hpcstack/zell/llvm-7.0/
+
+pkgver() {
+  cd "xmsh"
+  git log --pretty=format:'%h' -n 1
+}
+
+build() {
+  rm -rf build
+  mkdir build 
+  cd build
+  cmake ../xmsh \
+    -DCMAKE_TOOLCHAIN_FILE=/opt/hpcstack/compiler/llvm-7.0/etc/compiler.cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=${_toolchain_prefix}/
+
+  make VERBOSE=1
+}
+
+
+package() {
+  cd build
+
+  make DESTDIR="$pkgdir" install
+}

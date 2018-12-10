@@ -1,0 +1,18 @@
+pkgname=hpcstack-xmsh-llvm70-toolchain
+pkgver=1.0
+pkgrel=1
+pkgdesc="toolchain files"
+arch=('x86_64')
+license=('custom')
+depends=('hpcstack-llvm70')
+makedepends=()
+source=("toolchain.cmake")
+sha256sums=('SKIP')
+_toolchain_prefix="/opt/hpcstack/xmsh/llvm-7.0"
+_compiler_prefix="/opt/hpcstack/compiler/llvm-7.0"
+
+package() {
+  mkdir -p  ${pkgdir}/${_toolchain_prefix}/etc
+  cp toolchain.cmake ${pkgdir}/${_toolchain_prefix}/etc/
+
+}

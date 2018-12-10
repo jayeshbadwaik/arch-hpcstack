@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+set -o pipefail
+
+
+for i in */
+do
+  pushd $i
+    if [ -f PKGBUILD ]; then
+      for j in $(makepkg --packagelist)
+      do
+        cp $j /srv/http/arch-hpcstack/
+        cp $j.sig /srv/http/arch-hpcstack/
+        pushd /srv/http/arch-hpcstack/
+          repo-add -s arch-hpcstack.db.tar.xz $j
+        popd
+      done
+    fi
+  popd
+done

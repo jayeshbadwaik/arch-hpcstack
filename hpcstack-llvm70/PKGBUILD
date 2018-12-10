@@ -1,0 +1,59 @@
+pkgname=hpcstack-llvm70
+pkgver=7.0
+pkgrel=1
+pkgdesc="hpcstack llvm"
+arch=('x86_64')
+url="https://github.com/llvm-project"
+license=('MIT')
+depends=('gcc' 'cmake' 'binutils')
+makedepends=('git' 'python3' 'make')
+provides=('hpcstack-llvm70')
+conflicts=('hpcstack-llvm70')
+source=("git+https://github.com/llvm-project/llvm-project-20170507" "compiler.cmake")
+sha256sums=('SKIP' 'SKIP')
+_compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
+options=('!strip')
+
+prepare()
+{
+  BRANCH="RELEASE_700/final"
+  cd "llvm-project-20170507"
+  git checkout $BRANCH
+}
+
+build() {
+  rm -rf build
+  mkdir build 
+  cd build
+  cmake  -G Ninja \
+    ../llvm-project-20170507/llvm \
+  -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;libcxx;libcxxabi;compiler-rt;libunwind;lld;openmp;polly"  \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=${_compiler_prefix}/\
+    -DLLVM_ENABLE_ASSERTIONS=OFF \
+    -DLLVM_ENABLE_BINDINGS=OFF \
+    -DLLVM_INCLUDE_DOCS=OFF\
+	  -DLLVM_INCLUDE_EXAMPLES=OFF \
+    -DLIBCXX_ENABLE_ASSERTIONS=OFF \
+    -DLIBCXX_ENABLE_ASSERTIONS=OFF \
+    -DLLVM_TARGETS_TO_BUILD=host \
+    -DOPENMP_ENABLE_LIBOMPTARGET=OFF \
+	  -DLIBCXX_ENABLE_FILESYSTEM=ON \
+	  -DLIBCXX_ENABLE_EXPERIMENTAL_LIBRARY=ON \
+	  -DLIBCXX_INSTALL_EXPERIMENTAL_LIBRARY=ON \
+    -DLIBCXX_INCLUDE_BENCHMARKS=OFF \
+    -DLLVM_BINUTILS_INCDIR=/usr/include 
+    ninja all
+}
+
+
+package() {
+  pushd build
+  DESTDIR="$pkgdir" ninja install
+  popd
+
+
+  mkdir -p  ${pkgdir}/${_compiler_prefix}/etc
+  cp compiler.cmake ${pkgdir}/${_compiler_prefix}/etc/
+}

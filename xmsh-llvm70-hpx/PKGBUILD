@@ -1,0 +1,44 @@
+# Maintainer Jayesh Badwaik <badwaik.jayesh@gmail.com>
+
+pkgname=hpcstack-xmsh-llvm70-hpx
+pkgrel=1
+pkgver=1
+pkgdesc="A general purpose C++ runtime system for parallel and distributed applications of any scale"
+arch=("any")
+url="http://stellar-group.org/libraries/hpx"
+depends=("hpcstack-xmsh-llvm70-boost" "hpcstack-xmsh-llvm70-toolchain" "hwloc" "gperftools")
+makedepends=("cmake")
+license=("boost")
+source=("git+https://github.com/STEllAR-GROUP/hpx")
+sha256sums=('SKIP')
+_compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
+_toolchain_prefix="/opt/hpcstack/xmsh/llvm-7.0/"
+
+
+
+
+
+prepare()
+{
+  cd hpx
+}
+
+build() {
+  rm -rf build
+  mkdir build 
+  cd build
+  cmake ../hpx \
+    -DCMAKE_TOOLCHAIN_FILE=${_toolchain_prefix}/etc/toolchain.cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=${_toolchain_prefix}/ \
+    -DBOOST_ROOT=${_toolchain_prefix} 
+  make VERBOSE=1 -j8
+}
+
+
+package() {
+  cd build
+
+  make DESTDIR="$pkgdir" install
+}
