@@ -7,4 +7,4 @@ pkgdesc='Meta package to install arch-hpcstack'
 arch=(any)
 url='https://github.com/jayeshbadwaik/arch-hpcstack'
 license=(GPL)
-depends=('hpcstack-llvm70' 'hpcstack-xmsh-llvm70-boost' 'hpcstack-xmsh-llvm70-hpx' 'hpcstack-xmsh-llvm70-toolchain' 'hpcstack-zell-llvm70-boost'  'hpcstack-zell-llvm70-hpx' 'hpcstack-zell-llvm70-toolchain' 'hpcstack-zell-llvm70-xmsh')
+depends=('hpcstack-llvm70' 'hpcstack-xmsh-llvm70-boost' 'hpcstack-xmsh-llvm70-hpx' 'hpcstack-xmsh-llvm70-toolchain' 'hpcstack-zell-llvm70-boost'  'hpcstack-zell-llvm70-hpx' 'hpcstack-zell-llvm70-toolchain' 'hpcstack-zell-llvm70-xmsh' 'hpcstack-generic-llvm70-toolchain' 'hpcstack-generic-llvm70-boost')

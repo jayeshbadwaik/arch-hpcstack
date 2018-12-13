@@ -5,7 +5,10 @@ set -o pipefail
 
 for i in */
 do
-  pushd $i
-    makepkg --sign -f 
-  popd
+  if [ "$i" = "hpcstack-llvm70/" ]; then
+    continue;
+  fi
+  pushd $i > /dev/null
+    makepkg -f --sign 
+  popd > /dev/null
 done

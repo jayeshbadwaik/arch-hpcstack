@@ -1,5 +1,5 @@
 pkgname=hpcstack-zell-llvm70-xmsh
-pkgver=fd13ae5
+pkgver=da44fec
 pkgrel=1
 pkgdesc="xmsh : reference implementation to xmsh "
 arch=('x86_64')
