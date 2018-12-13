@@ -1,0 +1,38 @@
+# maintainer : Jayesh Badwaik <badwaik.jayesh@gmail.com>
+
+pkgname=hpcstack-xmsh-llvm70-boost
+pkgver=1.68.0
+_boostver=1_68_0
+pkgrel=1
+url='http://www.boost.org/'
+arch=('x86_64')
+license=('custom')
+depends=('hpcstack-llvm70' 'python')
+source=(https://dl.bintray.com/boostorg/release/${pkgver}/source/boost_${_boostver}.tar.bz2)
+sha256sums=('7f6130bc3cf65f56a618888ce9d5ea704fa10b462be126ad053e80e553d6d8b7')
+_compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
+_toolchain_prefix="/opt/hpcstack/xmsh/llvm-7.0/"
+
+
+build() {
+  ncore=$(nproc --all)
+  cd boost_${_boostver}
+  PATH=${_compiler_prefix}/bin/:$PATH
+  LIBRARY_PATH=${_compiler_prefix}/lib:$LIBRARY_PATH
+  CPATH=${_compiler_prefix}/include:$CPATH
+  LD_LIBRARY_PATH=${_compiler_prefix}/lib/:$LD_LIBRARY_PATH
+
+  ./bootstrap.sh \
+    --with-toolset=clang \
+    --prefix=$pkgdir/${_toolchain_prefix}
+
+  ./b2 -j $ncore \
+    toolset=clang \
+    cxxflags="-std=c++17 -stdlib=libc++ $(pkg-config --cflags python3) -O3" \
+    linkflags="-stdlib=libc++ -lc++abi -lc++experimental  -fuse-ld=lld"
+}
+
+package() {
+  cd boost_${_boostver}
+  ./b2 install
+}
