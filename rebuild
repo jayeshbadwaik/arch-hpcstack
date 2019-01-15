@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 set -e
 set -o pipefail
 
@@ -9,6 +9,6 @@ do
     continue;
   fi
   pushd $i > /dev/null
-    makepkg -f --sign 
+    makepkg -f --sign
   popd > /dev/null
 done

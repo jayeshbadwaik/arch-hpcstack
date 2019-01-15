@@ -9,7 +9,7 @@ depends=('gcc' 'cmake' 'binutils')
 makedepends=('git' 'python3' 'make')
 provides=('hpcstack-llvm70')
 conflicts=('hpcstack-llvm70')
-source=("git+https://github.com/llvm-project/llvm-project-20170507" "compiler.cmake")
+source=("git+https://github.com/llvm-project/llvm-project" "compiler.cmake")
 sha256sums=('SKIP' 'SKIP')
 _compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
 options=('!strip')
@@ -23,7 +23,7 @@ prepare()
 
 build() {
   rm -rf build
-  mkdir build 
+  mkdir build
   cd build
   cmake  -G Ninja \
     ../llvm-project-20170507/llvm \
@@ -43,7 +43,7 @@ build() {
 	  -DLIBCXX_ENABLE_EXPERIMENTAL_LIBRARY=ON \
 	  -DLIBCXX_INSTALL_EXPERIMENTAL_LIBRARY=ON \
     -DLIBCXX_INCLUDE_BENCHMARKS=OFF \
-    -DLLVM_BINUTILS_INCDIR=/usr/include 
+    -DLLVM_BINUTILS_INCDIR=/usr/include
     ninja all
 }
 
