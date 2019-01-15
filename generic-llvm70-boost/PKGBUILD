@@ -11,7 +11,7 @@ depends=('hpcstack-llvm70' 'python')
 source=(https://dl.bintray.com/boostorg/release/${pkgver}/source/boost_${_boostver}.tar.bz2)
 sha256sums=('7f6130bc3cf65f56a618888ce9d5ea704fa10b462be126ad053e80e553d6d8b7')
 _compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
-_toolchain_prefix="/opt/hpcstack/xmsh/llvm-7.0/"
+_toolchain_prefix="/opt/hpcstack/generic/llvm-7.0/"
 
 
 build() {
