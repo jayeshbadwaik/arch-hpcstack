@@ -1,5 +1,5 @@
 *.tar.xz
 *.tar.xz.sig
-llvm-project-20170507
+llvm-project
 pkg
 src

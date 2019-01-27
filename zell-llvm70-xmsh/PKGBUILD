@@ -1,5 +1,5 @@
 pkgname=hpcstack-zell-llvm70-xmsh
-pkgver=da44fec
+pkgver=1c835c8
 pkgrel=1
 pkgdesc="xmsh : reference implementation to xmsh "
 arch=('x86_64')
@@ -18,7 +18,7 @@ pkgver() {
 
 build() {
   rm -rf build
-  mkdir build 
+  mkdir build
   cd build
   cmake ../xmsh \
     -DCMAKE_TOOLCHAIN_FILE=/opt/hpcstack/compiler/llvm-7.0/etc/compiler.cmake \

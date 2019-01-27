@@ -1,0 +1,40 @@
+# Maintainer Jayesh Badwaik <badwaik.jayesh@gmail.com>
+
+pkgname=hpcstack-zell-llvm70-json
+
+pkgver=3.5.0
+pkgrel=1
+pkgdesc="Header-only JSON library for Modern C++"
+url="https://github.com/nlohmann/json"
+license=('MIT')
+arch=('i686' 'x86_64')
+makedepends=('cmake')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/nlohmann/json/archive/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+_compiler_prefix="/opt/hpcstack/compiler/llvm-7.0/"
+_toolchain_prefix="/opt/hpcstack/zell/llvm-7.0/"
+
+
+
+build() {
+  rm -rf build
+  mkdir build
+  cd build
+
+  cmake "$srcdir/json-$pkgver" \
+    -DCMAKE_TOOLCHAIN_FILE=${_toolchain_prefix}/etc/toolchain.cmake \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DBUILD_TESTING=OFF \
+    -DCMAKE_INSTALL_LIBDIR=lib \
+    -DCMAKE_INSTALL_PREFIX=${_toolchain_prefix}/
+
+  make VERBOSE=1 -j8
+}
+
+
+package() {
+  cd build
+
+  make DESTDIR="$pkgdir" install
+}
