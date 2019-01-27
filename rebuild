@@ -8,7 +8,7 @@ do
   if [ "$i" = "hpcstack-llvm70/" ]; then
     continue;
   fi
-  pushd $i > /dev/null
+  pushd $i
     makepkg -f --sign
-  popd > /dev/null
+  popd
 done
