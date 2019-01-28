@@ -5,5 +5,5 @@ include_directories(SYSTEM "${INSTALL_PREFIX}/include")
 link_directories(AFTER "${INSTALL_PREFIX}/lib")
 
 # Library Specific Variables
-set(Boost_ROOT ${INSTALL_PREFIX})
+set(BOOST_ROOT ${INSTALL_PREFIX})
 set(nlohmann_json_ROOT ${INSTALL_PREFIX})
