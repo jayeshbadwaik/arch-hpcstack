@@ -1,6 +1,6 @@
 pkgname=hpcstack-llvm70
 pkgver=7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="hpcstack llvm"
 arch=('x86_64')
 url="https://github.com/llvm-project"
@@ -50,7 +50,7 @@ build() {
 
 package() {
   pushd build
-  DESTDIR="$pkgdir" ninja install
+  DESTDIR="$pkgdir" ninja install all
   popd
 
 
