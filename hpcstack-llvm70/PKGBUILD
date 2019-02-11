@@ -1,6 +1,6 @@
 pkgname=hpcstack-llvm70
 pkgver=7.0
-pkgrel=2
+pkgrel=4
 pkgdesc="hpcstack llvm"
 arch=('x86_64')
 url="https://github.com/llvm-project"
